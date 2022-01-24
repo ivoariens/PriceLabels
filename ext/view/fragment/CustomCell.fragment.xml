@@ -1,0 +1,8 @@
+<core:FragmentDefinition 
+xmlns="sap.m"
+xmlns:core="sap.ui.core">
+	
+<!--<core:HTML content="{path: 'EAN11', formatter='.formatter.barCodeFormatter'}"></core:HTML>	-->
+<core:HTML content="{ path: 'EAN11', formatter: '.barCodeFormatter'}"></core:HTML>	
+
+</core:FragmentDefinition>

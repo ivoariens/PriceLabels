@@ -1,0 +1,231 @@
+{
+    "_version": "1.7.0",
+    "sap.app": {
+        "id": "ZSD.MATPRICECHGzsd_matpricechg",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "tags": {
+            "keywords": []
+        },
+        "dataSources": {
+            "RETAILSTORE_PRINT_LABELS_SRV": {
+                "uri": "/sap/opu/odata/sap/RETAILSTORE_PRINT_LABELS_SRV/",
+                "type": "OData",
+                "settings": {
+                    "annotations": []
+                }
+            },
+            "aux": {
+                "uri": "/sap/opu/odata/sap/ZSD_RFC195_SRV/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "ZSD_RFC195_ANNO_MDL"
+                    ]
+                }
+            },
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZC_MATPRICECHG_CDS/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "ZC_MATPRICECHG_CDS_VAN",
+                        "localAnnotations"
+                    ],
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "ZC_MATPRICECHG_CDS_VAN": {
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZC_MATPRICECHG_CDS_VAN',Version='0001')/$value/",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "localService/ZC_MATPRICECHG_CDS_VAN.xml"
+                }
+            },
+            "ZSD_RFC195_ANNO_MDL": {
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZSD_RFC195_ANNO_MDL',Version='0001')/$value/",
+                "type": "ODataAnnotation"
+            },
+            "localAnnotations": {
+                "uri": "annotations/annotations.xml",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "annotations/annotations.xml"
+                }
+            },
+            "actions": {
+                "uri": "annotations/actions.xml",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "annotations/actions.xml"
+                }
+            }
+        },
+        "offline": false,
+        "sourceTemplate": {
+            "id": "ui5template.smartTemplate",
+            "version": "1.40.12"
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_hcb",
+            "sap_belize"
+        ]
+    },
+    "sap.ui5": {
+        "resources": {
+            "js": [
+                {
+                    "uri": "lib/JsBarcode/library.js"
+                }
+            ],
+            "css": []
+        },
+        "dependencies": {
+            "minUI5Version": "1.32.1",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.comp": {},
+                "sap.uxap": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.layout": {},
+                "sap.ushell": {},
+                "sap.collaboration": {}
+            },
+            "components": {}
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "i18n|sap.suite.ui.generic.template.ListReport|MatPriceChgs": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/ListReport/MatPriceChgs/i18n.properties"
+            },
+            "i18n|sap.suite.ui.generic.template.ObjectPage|MatPriceChgs": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/ObjectPage/MatPriceChgs/i18n.properties"
+            },
+            "": {
+                "dataSource": "aux",
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false
+                }
+            },
+            "SAPRSPL": {
+                "dataSource": "RETAILSTORE_PRINT_LABELS_SRV",
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false
+                }
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {
+                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+                        "controllerName": "ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
+                        "sap.ui.generic.app": {
+                            "MatPriceChgs": {
+                                "EntitySet": "MatPriceChgs",
+                                "Actions": {
+                                    "PrintSelected": {
+                                        "id": "action1",
+                                        "text": "Print Label",
+                                        "press": "handlePrintSelected",
+                                        "requiresSelection": true
+                                    },
+                                    "PrintList": {
+                                        "id": "action2",
+                                        "text": "Print",
+                                        "press": "handlePrintList",
+                                        "requiresSelection": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "sap.ui.viewExtensions": {
+                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+                        "ResponsiveTableColumnsExtension|MatPriceChgs": {
+                            "type": "XML",
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "ZSD.MATPRICECHGzsd_matpricechg.ext.view.fragment.CustomColumn"
+                        },
+                        "ResponsiveTableCellsExtension|MatPriceChgs": {
+                            "type": "XML",
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "ZSD.MATPRICECHGzsd_matpricechg.ext.view.fragment.CustomCell"
+                        }
+                    }
+                }
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.ui.generic.app": {
+        "_version": "1.3.0",
+        "pages": {
+            "ListReport|MatPriceChgs": {
+                "entitySet": "MatPriceChgs",
+                "component": {
+                    "name": "sap.suite.ui.generic.template.ListReport",
+                    "list": true,
+                    "settings": {
+                        "tableSettings": {
+                            "multiSelect": true
+                        }
+                    }
+                },
+                "#pages": {
+                    "ObjectPage|MatPriceChgs": {
+                        "entitySet": "MatPriceChgs",
+                        "component": {
+                            "name": "sap.suite.ui.generic.template.ObjectPage"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sap.platform.hcp": {
+        "uri": ""
+    },
+    "sap.platform.abap": {
+        "uri": "/sap/bc/ui5_ui5/sap/zz1_rfc195",
+        "_version": "1.1.0"
+    }
+}

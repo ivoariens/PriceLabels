@@ -1,0 +1,9 @@
+{
+  "name": "ZZ1_RFC195",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "devDependencies": {
+    "@sap/grunt-sapui5-bestpractice-build": "1.4.2"
+  }
+}

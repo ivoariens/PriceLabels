@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Column>
+		<Text text="Bar Code"/>
+		<customData>
+			<core:CustomData key="p13nData" class="warning" value = '\{"columnKey":"BarCode","columnIndex":"0"}'></core:CustomData>
+		</customData>
+	</Column>
+</core:FragmentDefinition>

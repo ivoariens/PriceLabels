@@ -1,0 +1,98 @@
+{
+    "resources": [
+        {
+            "name": ".che/project.json"
+        },
+        {
+            "name": ".gitignore"
+        },
+        {
+            "name": ".project.json"
+        },
+        {
+            "name": ".user.project.json"
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "Gruntfile.js"
+        },
+        {
+            "name": "annotations/actions.xml"
+        },
+        {
+            "name": "annotations/annotations.xml"
+        },
+        {
+            "name": "dist"
+        },
+        {
+            "name": "ext/controller/ListReportExt.controller.js"
+        },
+        {
+            "name": "ext/controller/ListReportExtension.controller.js"
+        },
+        {
+            "name": "ext/model/formatter.js"
+        },
+        {
+            "name": "ext/view/fragment/BusyDialog.fragment.xml"
+        },
+        {
+            "name": "ext/view/fragment/CustomCell.fragment.xml"
+        },
+        {
+            "name": "ext/view/fragment/CustomColumn.fragment.xml"
+        },
+        {
+            "name": "ext/view/fragment/customCells.fragment.html"
+        },
+        {
+            "name": "i18n/ListReport/MatPriceChgs/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "lib/JsBarcode/library.js"
+        },
+        {
+            "name": "localService/ZC_MATPRICECHG_CDS_VAN.xml"
+        },
+        {
+            "name": "localService/metadata.xml"
+        },
+        {
+            "name": "localService/mockserver.js"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "neo-app.json"
+        },
+        {
+            "name": "node_modules"
+        },
+        {
+            "name": "package-lock.json"
+        },
+        {
+            "name": "package.json"
+        },
+        {
+            "name": "resources.json",
+            "merged": true
+        },
+        {
+            "name": "sap-ui-cachebuster-info.json"
+        }
+    ]
+}

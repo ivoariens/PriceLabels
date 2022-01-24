@@ -1,0 +1,69 @@
+<edmx:Edmx
+    xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="../../catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="../../catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="../../catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="../../../sap/zc_matpricechg_cds/$metadata">
+        <edmx:Include Namespace="ZC_MATPRICECHG_CDS" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema
+            xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="zc_matpricechg_cds_van.v1">
+            <Annotations Target="ZC_MATPRICECHG_CDS.MatPriceChgsType">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Change Date"/>
+                            <PropertyValue Property="Value" Path="ChangeDate"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="EAN11"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Material"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="wekgr"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Department"/>
+                            <PropertyValue Property="Value" Path="labst"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="NewPrice"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="OldPrice"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="StartDateofPrice"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Plant</PropertyPath>
+                        <PropertyPath>EAN11</PropertyPath>
+                        <PropertyPath>Material</PropertyPath>
+                        <PropertyPath>ChangeDate</PropertyPath>
+                        <PropertyPath>Vkorg</PropertyPath>
+                        <PropertyPath>Vtweg</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

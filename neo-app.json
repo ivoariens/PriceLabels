@@ -1,0 +1,93 @@
+{
+  "welcomeFile": "/test/flpSandbox.html",
+  "routes": [
+    {
+      "path": "/sap/opu/odata",
+      "target": {
+        "type": "destination",
+        "name": "INNO_100_SHAARS",
+        "entryPath": "/sap/opu/odata"
+      },
+      "description": "Inno 100 SHAARS"
+    },
+    {
+      "path": "/sap/bc/lrep",
+      "target": {
+        "type": "destination",
+        "name": "TEST",
+        "entryPath": "/sap/bc/lrep"
+      },
+      "description": "TEST"
+    },
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "preferLocal": true,
+        "entryPath": "/resources",
+        "version": "1.52.13"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/sap/ui5/1/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "preferLocal": true,
+        "version": "1.52.13"
+      },
+      "description": "SAPUI5 dist layer resources"
+    },
+    {
+      "path": "/webidedispatcher/",
+      "target": {
+        "type": "application",
+        "name": "flpsandbox",
+        "preferLocal": true
+      },
+      "description": "Subscribed Fiori LaunchPad"
+    },
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources",
+        "version": "1.52.13"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources",
+        "version": "1.52.13"
+      },
+      "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources",
+        "version": "1.52.13"
+      },
+      "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/sap/bc/ui5_ui5",
+      "target": {
+        "type": "destination",
+        "name": "INNO_100_SHAARS",
+        "entryPath": "/sap/bc/ui5_ui5"
+      },
+      "description": "Inno 100 SHAARS"
+    }
+  ],
+  "sendWelcomeFileRedirect": true
+}
