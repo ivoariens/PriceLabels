@@ -13,7 +13,7 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 	oStandardoDataModel: null,
 	requestIndex: 0,
 	listReportSmartTable: undefined,
-	printInstance: function(oParameters) {
+	printInstance: function (oParameters) {
 		return {
 			sGlobalTradeItemNumber: oParameters.sGlobalTradeItemNumber,
 			sLabelTypeID: oParameters.sLabelTypeID,
@@ -28,7 +28,7 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 		};
 
 	},
-	handlePrintSelected: function(oEvent) {
+	handlePrintSelected: function (oEvent) {
 		var plantsPath = this.listReportSmartTable.getTable().getSelectedContextPaths()[0] + "/toPrinters";
 		console.log(plantsPath);
 
@@ -41,7 +41,7 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 						template: new sap.m.DisplayListItem({
 							value: "{Printer}",
 							type: "Active",
-							press: function(oSelected) {
+							press: function (oSelected) {
 								this.printSelected(oSelected);
 								this.oDefaultDialog.close();
 							}.bind(this)
@@ -50,7 +50,7 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 				}),
 				endButton: new sap.m.Button({
 					text: "Close",
-					press: function() {
+					press: function () {
 						this.oDefaultDialog.close();
 					}.bind(this)
 				})
@@ -62,14 +62,14 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 
 		this.oDefaultDialog.open();
 	},
-	printSelected: function(oSelected) {
+	printSelected: function (oSelected) {
 		this.selectedPrinter = oSelected.getSource().getValue();
 		this.oStandardoDataModel.setDeferredGroups(["PrintlabelListBatch"]);
 		this.listReportSmartTable.getTable().getSelectedContextPaths().forEach(
-			function(context) {
+			function (context) {
 
 				this.getView().getModel().read(context, {
-					success: function(oData) {
+					success: function (oData) {
 
 						var oParameters = {};
 						var currentPrice = this.getView().getModel().getProperty(context);
@@ -107,9 +107,9 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 		//Submitting the function import batch call
 		this.oStandardoDataModel.submitChanges({
 			batchGroupId: "PrintlabelListBatch", //Same as the batch group id used previously
-			success: function(oData, oResponse) {
+			success: function (oData, oResponse) {
 				if (Array.isArray(oData.__batchResponses)) {
-					var errors = oData.__batchResponses.filter(function(msg) {
+					var errors = oData.__batchResponses.filter(function (msg) {
 						var responseObject = msg.hasOwnProperty("response") ? JSON.parse(msg.response.body) : JSON.parse(msg.__changeResponses[0].body);
 						if (responseObject.hasOwnProperty("error")) {
 							return true;
@@ -122,13 +122,13 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 					}
 				}
 			}.bind(this),
-			error: function(oError) {
+			error: function (oError) {
 				sap.m.MessageToast.show("Error");
 			}
 		});
 	},
-	handlePrintAll: function(oEvent) {},
-	onBeforeRebindTableExtension: function(oEvent) {
+	handlePrintAll: function (oEvent) {},
+	onBeforeRebindTableExtension: function (oEvent) {
 		if (this.listReportSmartTable === undefined) {
 			var oID = oEvent.getSource().getId();
 			this.listReportSmartTable = this.getView().byId(oID);
@@ -136,15 +136,15 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 		}
 		this.getView().getModel("SAPRSPL").getMetadata();
 		this.oStandardoDataModel = this.getView().getModel("SAPRSPL");
-		this.oStandardoDataModel.attachMetadataLoaded(function() {
+		this.oStandardoDataModel.attachMetadataLoaded(function () {
 			sap.m.MessageToast("Service loaded");
 		});
 		JsBarcode(".barcode").init();
-		setInterval(function() {
+		setInterval(function () {
 			JsBarcode(".barcode").init();
 		}, 1000);
 	},
-	createPrintRequest: function(oParameters) {
+	createPrintRequest: function (oParameters) {
 		var oServiceParameter = {};
 		oServiceParameter.groupId = "PrintlabelListBatch";
 
@@ -184,7 +184,7 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 		// 	};
 		// }
 	},
-	barCodeFormatter: function(EAN11) {
+	barCodeFormatter: function (EAN11) {
 		if (EAN11 === null || EAN11 === undefined || EAN11 === "") {
 			return "";
 		}
@@ -196,146 +196,93 @@ sap.ui.controller("ZSD.MATPRICECHGzsd_matpricechg.ext.controller.ListReportExt",
 			'</svg>';
 		return html;
 	},
-	handlePrintList: function(oEvent) {
+	handlePrintList: function (oEvent) {
 		//this print data model i have created on filtering the data, in similar way or any other method you to get the data required for print in a array like below
 		// var getModel = this.listReportSmartTable.getTable().getSelectedContextPaths();
 		var getModel = this.listReportSmartTable.getTable().getSelectedItems();
 		// the below line will pass the collected print data into the function which we have created for printing the report
 		this.printLayoutCreator(getModel);
 	},
-	printLayoutCreator: function(path) {
-		var pageno = 0;
+	printLayoutCreator: function (path) {
 		var totcnt;
-		var Table22 =
+        
+        var borderStyle = "border: 0.1px solid black;";
+        var baseStyle = "font-family: calibri; font-size: 11px; text-align: left;" + borderStyle;
+        var tableHeader =  baseStyle + "font-weight: bold;";
+        var tableContentStyle = baseStyle;
+
+        var tableStartPart = "<table class='table' style='"+borderStyle+" width: 1000px;'>";
+		var tableColumnsPart =
 			"<tr>" +
-			"<th style='text-align: left;font-size: 11px;font-size: 11px;font-size: 11px;font-family: calibri; text-align: left;width: 10%;'>EAN/UPC</th>" +
-			"<th style='text-align: left;width:10%; font-size: 11px; font-family: calibri;  text-align: left; '>Material</th>" +
-			"<th style='text-align: left;font-size: 11px;font-size: 11px;font-size: 11px;font-family: calibri; text-align: left;width: 10%;'>Material Description</th>" +
-			"<th style='text-align: left;width:10%; font-size: 11px; font-family: calibri;  text-align: left; '>Department</th>" +
-			"<th style='text-align: left; font-size: 11px;font-size: 11px;font-size: 11px;font-family: calibri; text-align: left;width: 10%;'>Stock Quantity</th>" +
-			"<th style='text-align: left;width:10%; font-size: 11px; font-family: calibri;  text-align: left; '>Net Price</th>" +
-			"<th style='text-align: left;font-size: 11px;font-size: 11px;font-size: 11px;font-family: calibri; text-align: left;width: 10%;'>Plant</th>" +
-			"<th style='text-align: left;width:10%; font-size: 11px; font-family: calibri;  text-align: left; '>Old Price</th>" +
-			"<th style='text-align: left;font-size: 11px;font-size: 11px;font-size: 11px;font-family: calibri; text-align: left;width: 10%;'>Start date of price</th>" +
-			"</tr></table><hr>";
+			"<th style='"+tableHeader+"'>Brand name</th>" +
+			"<th style='"+tableHeader+"'>EAN/UPC</th>" +
+			"<th style='"+tableHeader+"'>Material</th>" +
+			"<th style='"+tableHeader+"'>Material Description</th>" +
+			"<th style='"+tableHeader+"'>Department</th>" +
+			"<th style='"+tableHeader+"'>Stock Quantity</th>" +
+			"<th style='"+tableHeader+"'>Net Price</th>" +
+			"<th style='"+tableHeader+"'>Plant</th>" +
+			"<th style='"+tableHeader+"'>Old Price</th>" +
+			"<th style='"+tableHeader+"'>Start date of price</th>" +
+			"</tr>";
 
+        var tableContentPart = "";
 		for (totcnt = 0; totcnt <= path.length - 1; totcnt++) {
-			var totalPages = path.length;
-			var pageno = pageno + 1;
-			var test = "";
-			// The below If loop is created for adjusting the layout as per the landscape layout adjustments as per the pages that is been aksed to print	 
-
-			if (path.length === 1) {
-				var tabless =
-					"<br><body><div  style='box-sizing: content-box; width: 1000px; height: 680px; border: 0px solid black;' class='table-responsive'>";
-
-			} else {
-				if (totcnt === 0) {
-					var tabless =
-						"<br><body><div  style='box-sizing: content-box; width: 1000px; height: 711px; border: 0px solid black;' class='table-responsive'>";
-				} else if (totcnt === path.length - 1) {
-					var tabless =
-						"<div  style='box-sizing: content-box; width: 1000px; height: 690px; border: 0px solid black;' class='table-responsive'>";
-				} else {
-					var tabless =
-						"<div  style='box-sizing: content-box; width: 1000px; height: 710; border: 0px solid black;' class='table-responsive'>";
-				}
-			}
-
-			var Table2 =
-				"<div class='table-responsive' style='height:100px;    width: 1000px;'><table class='table' style='border-collapse: collapse; width: 1000px;'>";
-			var Table2WithHeader = Table2 + Table22;
-			var innerData = path[totcnt].InnerTableArray; // i have a another array data set inside a row in my data
-			var cnt;
-			// for (cnt = 0; cnt < innerData.length; cnt++) {
 			var row = path[totcnt];
 
-			var cells = row.getCells();
+            var cells = row.getCells();
 			var cell = cells[0];
-			var col01 = cell.getContent();
-			var cell = cells[1];
-			var col02 = cell.getText();
 			cell = cells[2];
-			var col03 = cell.getText();
+			var col03 = cell.getText(); //Brand name
 			cell = cells[3];
-			var col04 = cell.getText();
+			var col04 = cell.getText(); // EAN/UPC
 			cell = cells[4];
-			var col05 = cell.getText();
+			var col05 = cell.getText(); // Material
 			cell = cells[5];
-			var col06 = cell.getText();
+			var col06 = cell.getText(); // Material description
 			cell = cells[6];
-			var col07 = cell.getText();
+			var col07 = cell.getText(); // Department
 			cell = cells[7];
-			var col08 = cell.getText();
+			var col08 = cell.getText().replace(/ /g,''); // Stock quantity
 			cell = cells[8];
-			var col09 = cell.getText();
+			var col09 = cell.getText().replace(/ /g,''); // New price
 			cell = cells[9];
-			var col10 = cell.getText();
-			// cell = cells[10];
-			// var col11 = cell.getText();
+			var col10 = cell.getText().replace(/ /g,''); // Plant
+			cell = cells[10];
+			var col11 = cell.getText().replace(/ /g,''); // Old price
+			cell = cells[11];
+			var col12 = cell.getText().replace(/ /g,''); // Start date of price
+			cell = cells[12];
 
-			// Blob
-			var TempURL = URL.createObjectURL(new Blob([col01], {
-				type: 'image/svg+xml'
-			}));
-			TempURL = TempURL + ".svg";
-
-			// var len = TempURL.length;
-			// TempURL = TempURL.substr(5, len);
-
-			// barcode vanaf website
-			// TempURL = "https://barcode.tec-it.com/barcode.ashx?data=" +
-			//           col02 + 
-			//           "&code=EAN13&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&codepage=Default&qunit=Mm&quiet=0&hidehrt=False";
-
-			col01 = '<img src="' + TempURL + '" width=100%></img>';
-			// col01 = '<img src="' + col01 + '" width=100%></img>';
-
-			var table3 =
-				"<table class='table' style='border-collapse: collapse; width: 1000px;'><tr style='height: 100px'><td style='text-align: left; font-size: 11px; font-family: calibri; width: 10%;'>" +
-				col02 +
-				"</td><td style='text-align: left;width:10%; font-size: 11px; font-family: calibri;   '>" + col03 +
-				"</td>" +
-				"<td style='text-align: left;font-size: 11px;font-size: 11px;font-size: 11px;font-family: calibri; width: 10%;'>" +
-				col04 +
-				"</td><td style='text-align: left;width:10%; font-size: 11px; font-family: calibri;   '>" + col05 +
-				"</td>" +
-				"<td style='text-align: left; font-size: 11px;font-size: 11px;font-size: 11px;font-family: calibri; width: 10%;'>" +
-				col06 +
-				"</td><td style='text-align: left;width:10%; font-size: 11px; font-family: calibri;   '>" + col07 +
-				"</td>" +
-				"<td style='text-align: left;font-size: 11px;font-size: 11px;font-size: 11px;font-family: calibri; width: 10%;'>" +
-				col08 +
-				"</td><td style='text-align: left;width:10%; font-size: 11px; font-family: calibri;   '>" + col09 +
-				"</td>" +
-				"<td style='text-align: left; font-size: 11px;font-size: 11px;font-size: 11px;font-family: calibri; width: 10%;'>" +
-				col10 +
-				// "</td><td style='text-align: left;width:10%; font-size: 11px; font-family: calibri;   '>" + col11 +
-				"</td>" +
+		    var tableRow =
+				"<tr style='"+tableContentStyle+"'>" +
+				"<td style='"+tableContentStyle+"'>" + col03 + "</td>" +
+				"<td style='"+tableContentStyle+"'>" + col04 + "</td>" +
+				"<td style='"+tableContentStyle+"'>" + col05 + "</td>" +
+				"<td style='"+tableContentStyle+"'>" + col06 + "</td>" +
+				"<td style='"+tableContentStyle+"'>" + col07 + "</td>" +
+				"<td style='"+tableContentStyle+"'>" + col08 + "</td>" +
+				"<td style='"+tableContentStyle+"'>" + col09 + "</td>" +
+				"<td style='"+tableContentStyle+"'>" + col10 + "</td>" +
+				"<td style='"+tableContentStyle+"'>" + col11 + "</td>" +
+				"<td style='"+tableContentStyle+"'>" + col12 + "</td>" +
 				"</tr>";
 
-			if (totcnt === 0) {
-				Table2 = Table2WithHeader;
-			}
-			Table2 = Table2 + table3;
-			Table2 = Table2 + "</table></div>";
+			tableContentPart += tableRow;
+		}		    
 
-			var ctrlString = "width=500px,height=600px";
-			var wind = window.open("", "PrintWindow", ctrlString);
-			test = test + tabless + Table2 + "<hr>";
-			// test = test + tabless + Table1 +
-			// 	Table2 + "<hr>" + Table4;
-			if (wind !== undefined) {
-				wind.document.write(test);
-			}
-			// Creating a small time delay so that the layout renders
-			if (totcnt === path.length - 1) {
-				setTimeout(function() {
-					wind.print();
-					wind.close();
+		var tableEndPart = "</table>";
+		var ctrlString = "width=500px,height=600px";
+		var wind = window.open("", "PrintWindow", ctrlString);
+		var tableComplete = tableStartPart + tableColumnsPart + tableContentPart + tableEndPart;
 
-				}, 500);
-			}
+		if (wind !== undefined) {
+			wind.document.write(tableComplete);
 		}
+		// Creating a small time delay so that the layout renders
+		setTimeout(function() {
+			wind.print();
+			wind.close();
+		}, 500);
 	}
 });
